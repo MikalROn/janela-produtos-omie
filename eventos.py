@@ -29,8 +29,11 @@ def eventos(loop: EventSimpleGUI, app_omie: Omie):
         try:
             r = app_omie.listar_produtos_resumido(
                 pagina=1 if pagina == '' else int(pagina),
-                registros_por_pagina=1 if registros_por_pagina == '' else int(registros_por_pagina)
+                registros_por_pagina=100 if registros_por_pagina == '' else int(registros_por_pagina),
+                apenas_importado_api='N',
+                filtrar_apenas_omiepdv='N'
             )
+            sg.popup_ok(f'Messagem :{r}')
             valores = [[y for y in x.values()] for x in r['produto_servico_resumido']]
             tabela_lista_produtos.update(values=valores)
         except Exception as erro:
